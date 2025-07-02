@@ -1,3 +1,9 @@
 venv/
-
-inswapper_128.onnx
+weights/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.db
+*.sqlite3   

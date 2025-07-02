@@ -5,7 +5,7 @@ from src.components.faceswap import FaceSwap
 from src.logger import logging
 from src.exceptions import CustomException
 
-def main():
+def initiate_face_swapper(multi_face_img_path:str,single_face_img_path:str):
     try:
         logging.info("=== Starting Face Swap Pipeline ===")
 
@@ -16,10 +16,6 @@ def main():
 
         # Step 2: Load input images
         logging.info("Loading input images...")
-
-        # Replace these paths with actual image locations
-        multi_face_img_path = r"/Users/vamshi/Desktop/projects/Litzchill/face_swapper_image/example-1.jpeg"
-        single_face_img_path = r"/Users/vamshi/Desktop/projects/Litzchill/face_swapper_image/example-2.jpeg"
 
         img_multi_faces = cv2.imread(multi_face_img_path)
         img_single_face = cv2.imread(single_face_img_path)
@@ -40,12 +36,11 @@ def main():
         )
 
         logging.info(f"Face swap completed. Result saved at: {artifact.result_image_path}")
+
         logging.info("=== Pipeline Completed Successfully ===")
+        return artifact.result_image_path
 
     except Exception as e:
         logging.error("Pipeline execution failed.", exc_info=True)
         raise CustomException(e, sys) from e
 
-
-if __name__ == "__main__":
-    main()
