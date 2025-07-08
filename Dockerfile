@@ -1,17 +1,29 @@
-# Use Python 3.10 slim version as the base image
-FROM python:3.10-slim-buster
+FROM python:3.10-slim
 
-# Set the working directory inside the container
+# Install system dependencies including build tools
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    g++ \
+    cmake \
+    libgl1-mesa-glx \
+    libglib2.0-0 \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libgomp1 \
+    libgoogle-glog0v5 \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Copy the contents of the local directory to the container
-COPY . /app
+COPY requirements.txt .
 
-# Update apt packages and install AWS CLI
-RUN apt update -y && apt install awscli -y
-
-# Install the dependencies from the requirements.txt file
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy your application code
+COPY . .
 
 # Set the command to run your app
 CMD ["python", "app.py"]
