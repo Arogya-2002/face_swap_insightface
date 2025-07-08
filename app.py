@@ -5,6 +5,7 @@ import shutil
 import os
 import sys
 from uuid import uuid4
+import uvicorn
 
 from src.pipeline.faceswap_pipeline import initiate_face_swapper
 from src.logger import logging
@@ -58,3 +59,6 @@ async def face_swap(
     except Exception as e:
         logging.error("Unhandled exception during face swap API", exc_info=True)
         raise CustomException(e, sys) from e
+
+if __name__ == "__main__":
+    uvicorn.run("app:app", host="0.0.0.0", port=8000)
