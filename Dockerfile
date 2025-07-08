@@ -12,9 +12,7 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libxrender-dev \
     libgomp1 \
-    libgoogle-glog0v5 \
     && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /app
 
 COPY requirements.txt .
