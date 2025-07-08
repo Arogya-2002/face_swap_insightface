@@ -3,6 +3,7 @@ from src.logger import logging
 
 from src.entity.face_swap_config import ConfigEntity, SwapperModelConfig
 from src.entity.face_swap_artifact import SwapperModelArtifact
+from src.utils import download_weights_from_google_drive
 
 import insightface
 import sys
@@ -26,8 +27,7 @@ class FaceSwap:
             # Load model
             model_path = self.swapper_model_config.swapper_model_dir
             if not os.path.exists(model_path):
-                logging.error(f"ONNX model file not found at path: {model_path}")
-                raise FileNotFoundError(f"Swapper model not found at: {model_path}")
+                download_weights_from_google_drive()
             
             logging.info(f"Loading face swapper model from: {model_path}")
             swapper = insightface.model_zoo.get_model(model_path, download=False)
